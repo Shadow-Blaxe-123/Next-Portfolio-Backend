@@ -1,7 +1,5 @@
 # Project Overview
 
-Design and build a **personal portfolio website** with the following core features, ensuring good practices are implemented for better discoverability:
-
 - **Authentication & Authorization**: Secure login system allowing the portfolio owner to access a private dashboard to manage blogs, projects, and other content.
 - **Dashboard**: A centralized dashboard to manage blog posts and view dynamic project content.
 - **Blog Management**: Create a dynamic blog management system that allows owner to create, read, update, and delete blogs (Owner Only).
@@ -13,7 +11,6 @@ Design and build a **personal portfolio website** with the following core featur
 ## Tech Stack
 
 - **Backend**: Node.js/Express, Postgres + Prisma or MongoDB + Mongoose, JWT + bcrypt (Secure Authentication)
-- **For notifications**: react-hot-toast
 
 ---
 
