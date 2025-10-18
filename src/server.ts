@@ -1,6 +1,7 @@
-import app from "./app";
 import { env } from "./config/env";
 import { Server } from "http";
+import seedAdmin from "./utils/seedAdmin";
+import app from "./app";
 
 type ExitSignals =
   | "SIGINT"
@@ -48,4 +49,5 @@ exitSignals.forEach(signalHandler);
 
 (async () => {
   await startServer();
+  await seedAdmin();
 })();
