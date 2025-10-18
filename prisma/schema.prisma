@@ -19,3 +19,14 @@ model User {
   email    String @unique
   password String
 }
+
+model Projects {
+  id           String  @id @default(auto()) @map("_id") @db.ObjectId
+  title        String
+  description  String
+  content      String
+  thumbnailUrl String?
+  videoUrl     String?
+  liveUrl      String?
+  githubUrl    String?
+}
