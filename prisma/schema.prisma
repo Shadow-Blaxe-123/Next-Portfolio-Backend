@@ -20,7 +20,7 @@ model User {
   password String
 }
 
-model Projects {
+model Project {
   id           String  @id @default(auto()) @map("_id") @db.ObjectId
   title        String
   description  String
@@ -29,4 +29,14 @@ model Projects {
   videoUrl     String?
   liveUrl      String?
   githubUrl    String?
+  isFeatured   Boolean @default(false)
+}
+
+model Blog {
+  id           String  @id @default(auto()) @map("_id") @db.ObjectId
+  title        String
+  description  String
+  content      String
+  thumbnailUrl String?
+  isFeatured   Boolean @default(false)
 }
