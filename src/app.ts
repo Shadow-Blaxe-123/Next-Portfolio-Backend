@@ -1,6 +1,7 @@
 import express, { Application } from "express";
 import router from "./routes";
 import cookieParser from "cookie-parser";
+import notFound from "./middleware/404";
 
 const app: Application = express();
 
@@ -25,6 +26,6 @@ app.use("/api/v1", router);
 
 // Error handlers
 // app.use(globalErrorHandler);
-// app.use(notFound);
+app.use(notFound);
 
 export default app;
