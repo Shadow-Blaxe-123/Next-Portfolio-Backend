@@ -9,7 +9,7 @@ type Parameter = (
 
 const catchPromise =
   (fn: Parameter) => (req: Request, res: Response, next: NextFunction) => {
-    Promise.resolve(fn(req, res, next)).catch((err: any) => {
+    Promise.resolve(fn(req, res, next)).catch((err: unknown) => {
       if (env.NODE_ENV === "development") {
         console.log(err);
       }
