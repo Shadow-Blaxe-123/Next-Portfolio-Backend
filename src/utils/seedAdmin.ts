@@ -11,6 +11,7 @@ async function seedAdmin() {
     if (isAdmin) {
       console.log("Admin already exists");
     } else {
+      // const
       const admin = await prisma.user.create({
         data: {
           name: env.Admin.name,
