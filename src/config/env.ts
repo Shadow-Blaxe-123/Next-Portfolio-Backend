@@ -4,6 +4,7 @@ dotenv.config();
 interface Env {
   PORT: number;
   NODE_ENV: string;
+  HASH_SALT: number;
   Admin: {
     name: string;
     email: string;
@@ -18,6 +19,7 @@ function loadEnv(): Env {
     "ADMIN_NAME",
     "ADMIN_EMAIL",
     "ADMIN_PASSWORD",
+    "HASH_SALT",
   ];
   requiredVariables.forEach((variable) => {
     if (!process.env[variable]) {
@@ -28,6 +30,7 @@ function loadEnv(): Env {
     // Server
     PORT: Number(process.env.PORT),
     NODE_ENV: process.env.NODE_ENV as string,
+    HASH_SALT: Number(process.env.HASH_SALT),
 
     // Admin
     Admin: {

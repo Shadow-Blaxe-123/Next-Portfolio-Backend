@@ -1,3 +1,4 @@
+import { hash } from "bcryptjs";
 import { env } from "../config/env";
 import prisma from "../config/prismaClient";
 
@@ -11,12 +12,12 @@ async function seedAdmin() {
     if (isAdmin) {
       console.log("Admin already exists");
     } else {
-      // const
+      const hashedPassword = await hash(env.Admin.password, env.HASH_SALT);
       const admin = await prisma.user.create({
         data: {
           name: env.Admin.name,
           email: env.Admin.email,
-          password: env.Admin.password,
+          password: hashedPassword,
         },
       });
       console.log("Admin created");
