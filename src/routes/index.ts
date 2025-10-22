@@ -1,5 +1,6 @@
 import { Router } from "express";
 import LoginRoutes from "../modules/auth/login.route";
+import { ProjectRoutes } from "../modules/projects/projects.route";
 
 interface Route {
   path: string;
@@ -10,6 +11,10 @@ export const routes: Route[] = [
   {
     path: "/auth",
     route: LoginRoutes,
+  },
+  {
+    path: "/projects",
+    route: ProjectRoutes,
   },
 ];
 
