@@ -4,7 +4,7 @@ import AppError from "../../error/AppError";
 import { compare } from "bcryptjs";
 import userTokens from "../../utils/userTokens";
 
-const login = async (email: string, password: string) => {
+const loginService = async (email: string, password: string) => {
   const user = await prisma.user.findUnique({ where: { email } });
   if (!user) {
     throw new AppError(StatusCodes.NOT_FOUND, "User not found");
@@ -19,4 +19,4 @@ const login = async (email: string, password: string) => {
   return { accessToken, refreshToken };
 };
 
-export default login;
+export default loginService;
