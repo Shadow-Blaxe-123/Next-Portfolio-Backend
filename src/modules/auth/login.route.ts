@@ -6,6 +6,9 @@ import loginController from "./login.controller";
 const router = Router();
 
 router.post("/login", validateRequest(loginSchema), loginController);
+router.get("/logout", (req, res) => {
+  res.send("logout");
+});
 
 const LoginRoutes = router;
 export default LoginRoutes;

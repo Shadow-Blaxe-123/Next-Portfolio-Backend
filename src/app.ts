@@ -7,7 +7,7 @@ const app: Application = express();
 
 // 3rd party middleware
 app.use(express.json());
-// app.set("trust proxy", 1);
+app.set("trust proxy", 1);
 // app.use(
 //   cors({
 //     origin: env.FRONTEND_URL,
@@ -18,11 +18,11 @@ app.use(express.json());
 app.use(cookieParser());
 
 // Routes
-app.use("/", (req, res) => {
+app.use("/api/v1", router);
+
+app.get("/", (req, res) => {
   res.send("Hello World");
 });
-
-app.use("/api/v1", router);
 
 // Error handlers
 // app.use(globalErrorHandler);
