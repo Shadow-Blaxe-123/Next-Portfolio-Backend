@@ -28,11 +28,6 @@
 
 ### Private Pages (Only for Portfolio Owner)
 
-- **Authorization & Authentication**
-  - Use **JWT-based authentication**.
-  - **Owner Access:** Only the owner must log in to access private features.
-  - **Backend Setup:** Seed an admin user during backend implementation to enable owner login.
-  - Passwords securely hashed with bcrypt.
 - **Dashboard**
   - A dynamic **owner-only dashboard** where the owner can access a private dashboard to manage blogs, projects, and other content.
 
