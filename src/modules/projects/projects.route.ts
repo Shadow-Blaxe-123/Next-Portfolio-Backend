@@ -14,5 +14,6 @@ router.post(
   validateRequest(projectSchema),
   projectController.createProject
 );
+router.post("/:id", projectController.getProject);
 
 export const ProjectRoutes = router;

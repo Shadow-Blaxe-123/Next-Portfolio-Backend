@@ -5,7 +5,10 @@ const createProject = async (project: Prisma.ProjectCreateInput) => {
   const newProject = await prisma.project.create({ data: project });
   return newProject;
 };
-const getProject = async () => {};
+const getProject = async (id: string) => {
+  const project = await prisma.project.findUnique({ where: { id } });
+  return project;
+};
 const getAllProjects = async () => {};
 const getFeaturedProjects = async () => {};
 const updateProject = async () => {};

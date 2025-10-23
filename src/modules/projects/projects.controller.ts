@@ -26,4 +26,14 @@ const createProject = catchPromise(async (req: Request, res: Response) => {
   });
 });
 
-export const projectController = { createProject };
+const getProject = catchPromise(async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const project = await projectService.getProject(id);
+  sendRes(res, {
+    statusCode: StatusCodes.OK,
+    message: "Project fetched successfully",
+    data: { project },
+  });
+});
+
+export const projectController = { createProject, getProject };
