@@ -16,6 +16,11 @@ interface Env {
     email: string;
     password: string;
   };
+  Cloudinary: {
+    Cloud_Name: string;
+    Api_Key: string;
+    Api_Secret: string;
+  };
 }
 
 function loadEnv(): Env {
@@ -30,6 +35,9 @@ function loadEnv(): Env {
     "ACCESS_TOKEN_EXPIRES_IN",
     "REFRESH_TOKEN_SECRET",
     "REFRESH_TOKEN_EXPIRES_IN",
+    "CLOUDINARY_CLOUD_NAME",
+    "CLOUDINARY_API_KEY",
+    "CLOUDINARY_API_SECRET",
   ];
   requiredVariables.forEach((variable) => {
     if (!process.env[variable]) {
@@ -55,6 +63,13 @@ function loadEnv(): Env {
       Access_Token_Expires_In: process.env.ACCESS_TOKEN_EXPIRES_IN as string,
       Refresh_Token_Secret: process.env.REFRESH_TOKEN_SECRET as string,
       Refresh_Token_Expires_In: process.env.REFRESH_TOKEN_EXPIRES_IN as string,
+    },
+
+    // Cloudinary
+    Cloudinary: {
+      Cloud_Name: process.env.CLOUDINARY_CLOUD_NAME as string,
+      Api_Key: process.env.CLOUDINARY_API_KEY as string,
+      Api_Secret: process.env.CLOUDINARY_API_SECRET as string,
     },
   };
 }
