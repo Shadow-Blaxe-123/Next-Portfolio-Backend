@@ -1,6 +1,6 @@
 import z from "zod";
 
-const projectSchema = z.object({
+const createprojectSchema = z.object({
   title: z.string(),
   description: z.string(),
   content: z.string(),
@@ -10,5 +10,15 @@ const projectSchema = z.object({
   githubUrl: z.string().optional(),
   isFeatured: z.boolean(),
 });
+const updateprojectSchema = z.object({
+  title: z.string().optional(),
+  description: z.string().optional(),
+  content: z.string().optional(),
+  thumbnailUrl: z.string().optional(),
+  videoUrl: z.string().optional(),
+  liveUrl: z.string().optional(),
+  githubUrl: z.string().optional(),
+  isFeatured: z.boolean().optional(),
+});
 
-export { projectSchema };
+export { createprojectSchema, updateprojectSchema };
