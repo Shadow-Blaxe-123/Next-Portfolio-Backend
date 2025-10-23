@@ -4,6 +4,7 @@ dotenv.config();
 interface Env {
   PORT: number;
   NODE_ENV: string;
+  FRONTEND_URL: string;
   JWT: {
     Access_Token_Secret: string;
     Access_Token_Expires_In: string;
@@ -27,6 +28,7 @@ function loadEnv(): Env {
   const requiredVariables: string[] = [
     "PORT",
     "NODE_ENV",
+    "FRONTEND_URL",
     "ADMIN_NAME",
     "ADMIN_EMAIL",
     "ADMIN_PASSWORD",
@@ -47,6 +49,7 @@ function loadEnv(): Env {
   return {
     // Server
     PORT: Number(process.env.PORT),
+    FRONTEND_URL: process.env.FRONTEND_URL as string,
     NODE_ENV: process.env.NODE_ENV as string,
     HASH_SALT: Number(process.env.HASH_SALT),
 

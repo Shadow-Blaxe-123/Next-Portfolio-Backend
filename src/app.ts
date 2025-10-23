@@ -3,18 +3,20 @@ import router from "./routes";
 import cookieParser from "cookie-parser";
 import notFound from "./middleware/404";
 import globalErrorHandler from "./error/GlobalErrorHandler";
+import { env } from "./config/env";
+import cors from "cors";
 
 const app: Application = express();
 
 // 3rd party middleware
 app.use(express.json());
 app.set("trust proxy", 1);
-// app.use(
-//   cors({
-//     origin: env.FRONTEND_URL,
-//     credentials: true,
-//   })
-// );
+app.use(
+  cors({
+    origin: env.FRONTEND_URL,
+    credentials: true,
+  })
+);
 
 app.use(cookieParser());
 
