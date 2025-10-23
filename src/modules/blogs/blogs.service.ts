@@ -32,13 +32,27 @@ const updateBlog = async (
 
   return updatedBlog;
 };
+const deleteBlog = async (id: string) => {
+  const blog = await prisma.blog.findUnique({ where: { id } });
+  if (!blog) {
+    throw new AppError(StatusCodes.NOT_FOUND, "Project not found");
+  }
+  if (blog.thumbnailUrl) {
+    try {
+      await deleteImageFromCloudinary(blog.thumbnailUrl);
+    } catch (err) {
+      console.warn("Failed to delete old image from Cloudinary:", err);
+    }
+  }
+  await prisma.blog.delete({ where: { id } });
+  return true;
+};
 const getAllBlogs = async () => {
   const blogs = await prisma.blog.findMany();
   return blogs;
 };
 const getBlog = async () => {};
 const getFeaturedBlogs = async () => {};
-const deleteBlog = async () => {};
 
 export const blogService = {
   createBlog,

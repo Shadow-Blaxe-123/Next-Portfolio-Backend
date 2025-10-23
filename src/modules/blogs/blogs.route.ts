@@ -22,6 +22,9 @@ router.patch(
   blogController.updateBlog
 );
 
+router.delete("/delete/:id", checkAuth, blogController.deleteBlog);
+router.get("/get/:id", blogController.getBlog);
+
 router.get("/get-all", blogController.getAllBlogs);
 
 export const BlogRoutes = router;

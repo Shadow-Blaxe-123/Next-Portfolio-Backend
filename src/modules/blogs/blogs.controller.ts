@@ -43,6 +43,14 @@ const updateBlog = catchPromise(async (req: Request, res: Response) => {
     data: { blog },
   });
 });
+const deleteBlog = catchPromise(async (req: Request, res: Response) => {
+  const blog = await blogService.deleteBlog(req.params.id);
+  sendRes(res, {
+    statusCode: StatusCodes.OK,
+    message: "Blog deleted successfully",
+    data: { blog },
+  });
+});
 const getAllBlogs = catchPromise(async (req: Request, res: Response) => {
   const blogs = await blogService.getAllBlogs();
   sendRes(res, {
@@ -55,7 +63,6 @@ const getBlog = catchPromise(async (req: Request, res: Response) => {});
 const getFeaturedBlogs = catchPromise(
   async (req: Request, res: Response) => {}
 );
-const deleteBlog = catchPromise(async (req: Request, res: Response) => {});
 
 export const blogController = {
   createBlog,
