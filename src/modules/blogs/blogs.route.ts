@@ -1,5 +1,18 @@
 import { Router } from "express";
+import validateRequest from "../../middleware/zodValidator";
+import { blogValidation } from "./blogs.validation";
+import { multerUpload } from "../../config/multer";
+import checkAuth from "../../middleware/checkAuth";
+import { blogController } from "./blogs.controller";
 
 const router = Router();
+
+router.post(
+  "/create",
+  multerUpload.single("file"),
+  checkAuth,
+  validateRequest(blogValidation.createBlogSchema),
+  blogController.createBlog
+);
 
 export const BlogRoutes = router;

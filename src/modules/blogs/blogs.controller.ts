@@ -1,0 +1,42 @@
+import { StatusCodes } from "http-status-codes";
+import catchPromise from "../../utils/controllerHelper";
+import sendRes from "../../utils/sendRes";
+import { Request, Response } from "express";
+import { blogService } from "./blogs.service";
+import { Prisma } from "@prisma/client";
+import { uploadBufferToCloudinary } from "../../config/cloudinary";
+
+const createBlog = catchPromise(async (req: Request, res: Response) => {
+  const file = req.file;
+  let imageUrl: string | null | undefined = null;
+  if (file) {
+    imageUrl = (await uploadBufferToCloudinary(file.buffer, file.originalname))
+      ?.secure_url;
+  }
+  const payload: Prisma.BlogCreateInput = {
+    ...req.body,
+    thumbnailUrl: imageUrl,
+  };
+  const blog = await blogService.createBlog(payload);
+  sendRes(res, {
+    statusCode: StatusCodes.CREATED,
+    message: "Blog created successfully",
+    data: { blog },
+  });
+});
+const getAllBlogs = catchPromise(async (req: Request, res: Response) => {});
+const getBlog = catchPromise(async (req: Request, res: Response) => {});
+const getFeaturedBlogs = catchPromise(
+  async (req: Request, res: Response) => {}
+);
+const updateBlog = catchPromise(async (req: Request, res: Response) => {});
+const deleteBlog = catchPromise(async (req: Request, res: Response) => {});
+
+export const blogController = {
+  createBlog,
+  getAllBlogs,
+  getBlog,
+  getFeaturedBlogs,
+  updateBlog,
+  deleteBlog,
+};
