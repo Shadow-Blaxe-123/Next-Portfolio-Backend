@@ -16,5 +16,6 @@ router.post(
 );
 router.get("/get/:id", projectController.getProject);
 router.get("/get-all", projectController.getAllProjects);
+router.get("/get-featured", projectController.getFeaturedProjects);
 
 export const ProjectRoutes = router;

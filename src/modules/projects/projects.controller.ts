@@ -44,8 +44,22 @@ const getAllProjects = catchPromise(async (req: Request, res: Response) => {
     data: { projects },
   });
 });
-// const getFeaturedProjects
+const getFeaturedProjects = catchPromise(
+  async (req: Request, res: Response) => {
+    const projects = await projectService.getFeaturedProjects();
+    sendRes(res, {
+      statusCode: StatusCodes.OK,
+      message: "Projects fetched successfully",
+      data: { projects },
+    });
+  }
+);
 // const updateProject
 // const deleteProject
 
-export const projectController = { createProject, getProject, getAllProjects };
+export const projectController = {
+  createProject,
+  getProject,
+  getAllProjects,
+  getFeaturedProjects,
+};
