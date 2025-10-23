@@ -10,16 +10,25 @@ const createProject = async (project: Prisma.ProjectCreateInput) => {
 };
 const getProject = async (id: string) => {
   const project = await prisma.project.findUnique({ where: { id } });
+  if (!project) {
+    throw new AppError(StatusCodes.NOT_FOUND, "Project not found");
+  }
   return project;
 };
 const getAllProjects = async () => {
   const projects = await prisma.project.findMany();
+  if (!projects) {
+    throw new AppError(StatusCodes.NOT_FOUND, "Projects not found");
+  }
   return projects;
 };
 const getFeaturedProjects = async () => {
   const projects = await prisma.project.findMany({
     where: { isFeatured: true },
   });
+  if (!projects) {
+    throw new AppError(StatusCodes.NOT_FOUND, "Projects not found");
+  }
   return projects;
 };
 const updateProject = async (id: string, data: Prisma.ProjectUpdateInput) => {

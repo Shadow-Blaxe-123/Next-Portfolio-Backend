@@ -59,7 +59,14 @@ const getAllBlogs = catchPromise(async (req: Request, res: Response) => {
     data: { blogs },
   });
 });
-const getBlog = catchPromise(async (req: Request, res: Response) => {});
+const getBlog = catchPromise(async (req: Request, res: Response) => {
+  const blog = await blogService.getBlog(req.params.id);
+  sendRes(res, {
+    statusCode: StatusCodes.OK,
+    message: "Blog fetched successfully",
+    data: { blog },
+  });
+});
 const getFeaturedBlogs = catchPromise(
   async (req: Request, res: Response) => {}
 );
