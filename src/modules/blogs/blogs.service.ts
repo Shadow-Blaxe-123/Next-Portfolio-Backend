@@ -32,7 +32,10 @@ const updateBlog = async (
 
   return updatedBlog;
 };
-const getAllBlogs = async () => {};
+const getAllBlogs = async () => {
+  const blogs = await prisma.blog.findMany();
+  return blogs;
+};
 const getBlog = async () => {};
 const getFeaturedBlogs = async () => {};
 const deleteBlog = async () => {};

@@ -22,4 +22,6 @@ router.patch(
   blogController.updateBlog
 );
 
+router.get("/get-all", blogController.getAllBlogs);
+
 export const BlogRoutes = router;
