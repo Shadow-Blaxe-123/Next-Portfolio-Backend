@@ -35,7 +35,7 @@ const updateBlog = async (
 const deleteBlog = async (id: string) => {
   const blog = await prisma.blog.findUnique({ where: { id } });
   if (!blog) {
-    throw new AppError(StatusCodes.NOT_FOUND, "Project not found");
+    throw new AppError(StatusCodes.NOT_FOUND, "Blog not found");
   }
   if (blog.thumbnailUrl) {
     try {
