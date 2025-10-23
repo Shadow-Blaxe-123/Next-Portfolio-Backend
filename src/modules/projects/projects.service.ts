@@ -44,7 +44,21 @@ const updateProject = async (id: string, data: Prisma.ProjectUpdateInput) => {
   return updatedProject;
 };
 
-const deleteProject = async () => {};
+const deleteProject = async (id: string) => {
+  const project = await prisma.project.findUnique({ where: { id } });
+  if (!project) {
+    throw new AppError(StatusCodes.NOT_FOUND, "Project not found");
+  }
+  if (project.thumbnailUrl) {
+    try {
+      await deleteImageFromCloudinary(project.thumbnailUrl);
+    } catch (err) {
+      console.warn("Failed to delete old image from Cloudinary:", err);
+    }
+  }
+  await prisma.project.delete({ where: { id } });
+  return true;
+};
 
 export const projectService = {
   createProject,

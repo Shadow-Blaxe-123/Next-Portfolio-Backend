@@ -54,12 +54,41 @@ const getFeaturedProjects = catchPromise(
     });
   }
 );
-// const updateProject
-// const deleteProject
+const updateProject = catchPromise(async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const file = req.file;
+  let imageUrl: string | null | undefined = null;
+  if (file) {
+    imageUrl = (await uploadBufferToCloudinary(file.buffer, file.originalname))
+      ?.secure_url;
+  }
+  const payload: Prisma.ProjectUpdateInput = {
+    ...req.body,
+    ...(imageUrl && { thumbnailUrl: imageUrl }),
+  };
+
+  const project = await projectService.updateProject(id, payload);
+  sendRes(res, {
+    statusCode: StatusCodes.OK,
+    message: "Project updated successfully",
+    data: { project },
+  });
+});
+const deleteProject = catchPromise(async (req: Request, res: Response) => {
+  const id = req.params.id;
+  const deleted = await projectService.deleteProject(id);
+  sendRes(res, {
+    statusCode: StatusCodes.OK,
+    message: "Project deleted successfully",
+    data: { deleted },
+  });
+});
 
 export const projectController = {
   createProject,
   getProject,
   getAllProjects,
   getFeaturedProjects,
+  updateProject,
+  deleteProject,
 };
