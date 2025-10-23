@@ -9,7 +9,10 @@ const getProject = async (id: string) => {
   const project = await prisma.project.findUnique({ where: { id } });
   return project;
 };
-const getAllProjects = async () => {};
+const getAllProjects = async () => {
+  const projects = await prisma.project.findMany();
+  return projects;
+};
 const getFeaturedProjects = async () => {};
 const updateProject = async () => {};
 const deleteProject = async () => {};

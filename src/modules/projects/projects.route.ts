@@ -14,6 +14,7 @@ router.post(
   validateRequest(projectSchema),
   projectController.createProject
 );
-router.post("/:id", projectController.getProject);
+router.get("/get/:id", projectController.getProject);
+router.get("/get-all", projectController.getAllProjects);
 
 export const ProjectRoutes = router;
