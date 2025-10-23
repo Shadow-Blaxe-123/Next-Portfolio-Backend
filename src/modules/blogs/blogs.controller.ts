@@ -24,12 +24,30 @@ const createBlog = catchPromise(async (req: Request, res: Response) => {
     data: { blog },
   });
 });
+const updateBlog = catchPromise(async (req: Request, res: Response) => {
+  const file = req.file;
+  let imageUrl: string | null | undefined = null;
+  if (file) {
+    imageUrl = (await uploadBufferToCloudinary(file.buffer, file.originalname))
+      ?.secure_url;
+  }
+  const payload: Prisma.BlogUpdateInput = {
+    ...req.body,
+    ...(imageUrl && { thumbnailUrl: imageUrl }),
+  };
+
+  const blog = await blogService.updateBlog(req.params.id, payload);
+  sendRes(res, {
+    statusCode: StatusCodes.OK,
+    message: "Blog updated successfully",
+    data: { blog },
+  });
+});
 const getAllBlogs = catchPromise(async (req: Request, res: Response) => {});
 const getBlog = catchPromise(async (req: Request, res: Response) => {});
 const getFeaturedBlogs = catchPromise(
   async (req: Request, res: Response) => {}
 );
-const updateBlog = catchPromise(async (req: Request, res: Response) => {});
 const deleteBlog = catchPromise(async (req: Request, res: Response) => {});
 
 export const blogController = {

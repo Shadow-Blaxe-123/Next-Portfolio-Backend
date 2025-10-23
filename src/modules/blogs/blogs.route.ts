@@ -14,5 +14,12 @@ router.post(
   validateRequest(blogValidation.createBlogSchema),
   blogController.createBlog
 );
+router.patch(
+  "/update/:id",
+  multerUpload.single("file"),
+  checkAuth,
+  validateRequest(blogValidation.updateBlogSchema),
+  blogController.updateBlog
+);
 
 export const BlogRoutes = router;
