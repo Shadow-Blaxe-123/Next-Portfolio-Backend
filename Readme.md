@@ -1,84 +1,90 @@
-# Project Overview
+# Next.js Personal Portfolio – Backend
 
-- **Authentication & Authorization**: Secure login system allowing the portfolio owner to access a private dashboard to manage blogs, projects, and other content.
-- **Dashboard**: A centralized dashboard to manage blog posts and view dynamic project content.
-- **Blog Management**: Create a dynamic blog management system that allows owner to create, read, update, and delete blogs (Owner Only).
-- **Projects Showcase**: Include a section for personal projects (Public).
-- Responsive UI and polished UX.
+This is the backend server for a personal portfolio project built as part of a Next.js assignment. It provides CRUD functionality for blogs and projects, along with automatic owner seeding on server start.Thumbnails for projects and blogs are uploaded to Cloudinary.
 
----
+Middleware uses multer to parse multipart/form-data.
+
+## Features
+
+* CRUD Operations for Blogs and Projects.
+* Automatic Owner Seeding during server startup.
+* File Uploads support for project/blog thumbnails (using Cloudinary).
+* TypeScript for type safety.
+* Express.js backend framework.
+* Prisma ORM for MongoDB database interactions.
+* Global Error Handling with custom AppError.
+* JSON responses for all API errors.
 
 ## Tech Stack
 
-- **Backend**: Node.js/Express, Postgres + Prisma or MongoDB + Mongoose, JWT + bcrypt (Secure Authentication)
+* Backend: Express.js
+* Database: MongoDB
+* ORM: Prisma
+* Language: TypeScript
+* File Storage: Cloudinary
+* Validation: Zod
 
----
+## Installation
 
-## 📌 Minimum Requirements
+1. Clone the repository:
 
-### Public Pages (Accessible to All Visitors – No Login Required)
+    ```bash
+        git clone <your-repo-url>
+        cd nextjs-portfolio-backend
+    ```
 
-- **Blog Management**
-  - Public users should be able to view all blogs page and individual blog pages.
-  - Use **ISR** for the "All Blogs" page to fetch new content without rebuilding the entire site.
-  - Use ISR with `getStaticPaths` + `revalidate` for individual blog pages to generate content dynamically for each user request.
-- **Project Showcase**
-  - A section dedicated to personal projects with **thumbnail**, **project link**, **live site**, **description, and features**.
-  - Use **ISR** to allow dynamic updates or fetching of project data.
+2. Install dependencies
 
-### Private Pages (Only for Portfolio Owner)
+    ```bash
+        npm install
+    ```
 
-- **Dashboard**
-  - A dynamic **owner-only dashboard** where the owner can access a private dashboard to manage blogs, projects, and other content.
+3. Set up environment variables
 
----
+    Create a .env file in the root directory:
 
-## Bonus (Optional)
+    ```bash
+      DATABASE_URL=<your_mongodb_connection_string>
+      CLOUDINARY_CLOUD_NAME=<cloudinary_cloud_name>
+      CLOUDINARY_API_KEY=<cloudinary_api_key>
+      CLOUDINARY_API_SECRET=<cloudinary_api_secret>
+      NODE_ENV=development
+      PORT=5000
+    
+    ```
 
-This section is not required to meet the main requirements, but completing it can help you earn full marks.
+4. Run database migrations
 
-- **Rich Text Editor**
-  - Use a **rich text editor** to create, edit, and format blog/project content.
-  - Include options like bold, italic, links, images, etc.
-  - **Example Package:** React Quill
+    ```bash
+      npx prisma migrate dev --name init
+    ```
 
----
+5. Start the server
 
-## ❄️ General UI/UX Enhancements
+    ```bash
+      npm run dev
+    ```
 
-- Interactive UI: carousels, cards, skeletons and smooth transitions.
-- Lazy-loading for heavy assets, no broken links or non-functional buttons.
-- Accessibility-compliant components and semantic HTML.
-- **Strict Error Handling (⚠️ Mandatory for Full Marks)**
-  - Proper form validation with clear error messages (e.g., required fields, invalid email, password mismatch).
-  - User-friendly messages for API/network errors and unauthorized actions.
-  - Success/error feedback via toast/alerts (e.g., `react-hot-toast`).
+Server will automatically seed the owner/admin user.
 
-## Submission Guidelines
+## API Endpoints Overview
 
-### 1. Codebase
+The base Api structure is: **<http://localhost:5000/api/v1/>**
 
-- Clean, modular code following best practices.
-- Include a comprehensive `README.md` with:
-  - Live deployment link
-  - Project overview & features
-  - Technology stack
-  - Setup instructions
-  - Any other relevant notes
+### Project
 
-### 2. GitHub Repository
+* **POST** -> **/project/create**         -> Owner can create new project.
+* **GET** -> **/project/get/:id**         -> Anyone can fetch a specific project.
+* **GET** -> **/project/get-all**         -> Fetch all projects.
+* **GET** -> **/project/get-featured**    -> Fetch all all featured projects.
+* **PATCH** -> **/project/update/:id**    -> Protected Route. Owner can update projects.
+* **DELETE** -> **/project/delete/:id**   -> Protected Route. Owner can delete projects.
+  
+### Blog
 
-- Separate repositories/mono for **Frontend** and **Backend**.
-- Minimum **10 meaningful commits** per repo showing development progress.
-
-### 3. Live Deployment
-
-- Provide live URLs for both frontend and backend.
-
-### 4. Demo Video
-
-- 10-15 minute walkthrough of the project.
-
-### 5. Credentials
-
-- Provide admin login details (email & password) for testing.
+* **POST** -> **/blog/create**         -> Owner can create new blog.
+* **GET** -> **/blog/get/:id**         -> Anyone can fetch a specific blog.
+* **GET** -> **/blog/get-all**         -> Fetch all projects.
+* **GET** -> **/blog/get-featured**    -> Fetch all all featured projects.
+* **PATCH** -> **/blog/update/:id**    -> Protected Route. Owner can update blog.
+* **DELETE** -> **/blog/delete/:id**   -> Protected Route. Owner can delete blog.
