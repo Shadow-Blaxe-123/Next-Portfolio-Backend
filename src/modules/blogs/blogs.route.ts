@@ -27,4 +27,6 @@ router.get("/get/:id", blogController.getBlog);
 
 router.get("/get-all", blogController.getAllBlogs);
 
+router.get("/get-featured", blogController.getFeaturedBlogs);
+
 export const BlogRoutes = router;

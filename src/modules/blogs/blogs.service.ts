@@ -61,7 +61,13 @@ const getBlog = async (id: string) => {
   }
   return blog;
 };
-const getFeaturedBlogs = async () => {};
+const getFeaturedBlogs = async () => {
+  const blogs = await prisma.blog.findMany({ where: { isFeatured: true } });
+  if (!blogs) {
+    throw new AppError(StatusCodes.NOT_FOUND, "Blogs not found");
+  }
+  return blogs;
+};
 
 export const blogService = {
   createBlog,
